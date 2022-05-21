@@ -3,7 +3,7 @@ import random
 
 root = tkinter.Tk()
 root.title("Flash Cards")
-root.geometry("500x175")
+root.geometry("400x175")
 root.configure(bg = "black")
 forcount = {}
 count = 0
@@ -40,19 +40,17 @@ def countwords():
     global count
     count = len(forcount.items())
     lbl4.configure(text = count)
-    ent_eng.delete(0, "end")
-    ent_ru.delete(0, "end")
 
 lbl1 = tkinter.Label(root, text = "", fg = "yellow", bg = "black")
 lbl2 = tkinter.Label(root, text = "", fg = "yellow", bg = "black")
 lbl3 = tkinter.Label(root, text = "total words: ", fg = "white", bg = "black")
 lbl4 = tkinter.Label(root, text = "", fg = "white", bg = "black")
 btn1 = tkinter.Button(root, text = "show", bg = "gray", command = startstopshowcards)
-lbl1.place(x = 180, y = 30)
-lbl2.place(x = 180, y = 60)
-lbl3.place(x = 190, y = 120)
-lbl4.place(x = 270, y = 120)
-btn1.place(x = 225, y = 140)
+lbl1.place(x = 90, y = 30)
+lbl2.place(x = 90, y = 60)
+lbl3.place(x = 140, y = 120)
+lbl4.place(x = 210, y = 120)
+btn1.place(x = 160, y = 140)
 countwords()
 if __name__ == "__main__":
     root.mainloop()
