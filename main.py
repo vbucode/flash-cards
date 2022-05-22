@@ -22,8 +22,8 @@ class B(Button):
         while True:
             xvar = random.choice(xlist)
             self.lbl.config(text = xvar)
-            root.after(5000)
-            root.update()
+            self.after(5000)
+            self.update()
 
 def main():
     root = Tk()
