@@ -1,12 +1,7 @@
-import tkinter
+from tkinter import *
 import random
 
-root = tkinter.Tk()
-root.title("Flash Cards")
-root.geometry("400x175")
-root.configure(bg = "black")
 xlist = []
-startstop = 0
 
 with open("words-eng-ru.txt", "r") as file:
     for row in file:
@@ -15,37 +10,28 @@ with open("words-eng-ru.txt", "r") as file:
         else:
             xlist.append(row.replace("\n", ""))
 
-def startstopshowcards():
-    global startstop
-    if startstop == 0:
-        btn1["text"] = "pause"
-        startstop = 1
-        while startstop == 1:
+class B(Button):
+    def __init__(self, parent = None, **config):
+        Button.__init__(self, parent, **config)
+        self.config(command = self.startstopshowcards)
+        self.place(x = 160, y = 140)
+
+    def startstopshowcards(self):
+        self.lbl = Label(text = "", fg = "yellow", bg = "black")
+        self.lbl.place(x = 90, y = 60)
+        while True:
             xvar = random.choice(xlist)
-            engvar, ruvar, *res = xvar.split(":")
-            lbl1.configure(text = engvar)
-            lbl2.configure(text = ruvar)
+            self.lbl.config(text = xvar)
             root.after(5000)
             root.update()
-    else:
-        btn1["text"] = "show"
-        startstop = 0
 
-def countwords():
-    lbl4.configure(text = len(xlist))
-
-lbl1 = tkinter.Label(root, text = "", fg = "yellow", bg = "black")
-lbl2 = tkinter.Label(root, text = "", fg = "yellow", bg = "black")
-lbl3 = tkinter.Label(root, text = "total words: ", fg = "white", bg = "black")
-lbl4 = tkinter.Label(root, text = "", fg = "white", bg = "black")
-btn1 = tkinter.Button(root, text = "show", bg = "gray", command = startstopshowcards)
-lbl1.place(x = 90, y = 30)
-lbl2.place(x = 90, y = 60)
-lbl3.place(x = 140, y = 120)
-lbl4.place(x = 210, y = 120)
-btn1.place(x = 160, y = 140)
-
-countwords()
+def main():
+    root = Tk()
+    B(text = "show")
+    root.title("Flash Cards")
+    root.geometry("400x175")
+    root.configure(bg = "black")
+    root.mainloop()
 
 if __name__ == "__main__":
-    root.mainloop()
+    main()
