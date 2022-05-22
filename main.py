@@ -6,7 +6,7 @@ root.title("Flash Cards")
 root.geometry("400x175")
 root.configure(bg = "black")
 xlist = []
-startstopflag = 0
+startstop = 0
 
 with open("words-eng-ru.txt", "r") as file:
     for row in file:
@@ -15,25 +15,21 @@ with open("words-eng-ru.txt", "r") as file:
         else:
             xlist.append(row.replace("\n", ""))
 
-def showcards():
-    global startstopflag
-    while startstopflag == 1:
-        xvar = random.choice(xlist)
-        engvar, ruvar, *res = xvar.split(":")
-        lbl1.configure(text = engvar)
-        lbl2.configure(text = ruvar)
-        root.after(5000)
-        root.update()
-
 def startstopshowcards():
-    global startstopflag
-    if startstopflag == 0:
+    global startstop
+    if startstop == 0:
         btn1["text"] = "pause"
-        startstopflag = 1
-        showcards()
+        startstop = 1
+        while startstop == 1:
+            xvar = random.choice(xlist)
+            engvar, ruvar, *res = xvar.split(":")
+            lbl1.configure(text = engvar)
+            lbl2.configure(text = ruvar)
+            root.after(5000)
+            root.update()
     else:
         btn1["text"] = "show"
-        startstopflag = 0
+        startstop = 0
 
 def countwords():
     lbl4.configure(text = len(xlist))
