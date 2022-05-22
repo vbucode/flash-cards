@@ -17,13 +17,16 @@ class B(Button):
         self.place(x = 160, y = 140)
 
     def startstopshowcards(self):
-        self.lbl = Label(text = "", fg = "yellow", bg = "black")
+        self.lbl = Label(text = " ", fg = "yellow", bg = "black")
         self.lbl.place(x = 90, y = 60)
         while True:
-            xvar = random.choice(xlist)
-            self.lbl.config(text = xvar)
-            self.after(5000)
-            self.update()
+            try:
+                xvar = random.choice(xlist)
+                self.lbl.configure(text = str(xvar))
+                self.after(5000)
+                self.update()
+            except TclError:
+                sys.exit()
 
 def main():
     root = Tk()
