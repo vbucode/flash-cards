@@ -5,8 +5,7 @@ root = tkinter.Tk()
 root.title("Flash Cards")
 root.geometry("400x175")
 root.configure(bg = "black")
-forcount = {}
-count = 0
+xlist = []
 startstopflag = 0
 
 with open("words-eng-ru.txt", "r") as file:
@@ -14,13 +13,13 @@ with open("words-eng-ru.txt", "r") as file:
         if not row:
             continue
         else:
-            eng, rus, *res = row.split(":")
-            forcount[eng] = rus
+            xlist.append(row.replace("\n", ""))
 
 def showcards():
     global startstopflag
     while startstopflag == 1:
-        engvar, ruvar = random.choice(list(forcount.items()))
+        xvar = random.choice(xlist)
+        engvar, ruvar, *res = xvar.split(":")
         lbl1.configure(text = engvar)
         lbl2.configure(text = ruvar)
         root.after(5000)
@@ -37,9 +36,7 @@ def startstopshowcards():
         startstopflag = 0
 
 def countwords():
-    global count
-    count = len(forcount.items())
-    lbl4.configure(text = count)
+    lbl4.configure(text = len(xlist))
 
 lbl1 = tkinter.Label(root, text = "", fg = "yellow", bg = "black")
 lbl2 = tkinter.Label(root, text = "", fg = "yellow", bg = "black")
@@ -51,6 +48,8 @@ lbl2.place(x = 90, y = 60)
 lbl3.place(x = 140, y = 120)
 lbl4.place(x = 210, y = 120)
 btn1.place(x = 160, y = 140)
+
 countwords()
+
 if __name__ == "__main__":
     root.mainloop()
