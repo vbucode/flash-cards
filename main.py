@@ -32,9 +32,11 @@ class B(Button):
     def changebutton(self):
         if self.startstop == 0:
             self.startstop = 1
+            self.config(text = "pause")
             self.startshowcards()
         else:
             self.startstop = 0
+            self.config(text = "show")
             self.startshowcards()
 
 def main():
