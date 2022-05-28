@@ -13,13 +13,14 @@ with open("words-eng-ru.txt", "r") as file:
 class B(Button):
     def __init__(self, parent = None, **config):
         Button.__init__(self, parent, **config)
-        self.config(command = self.startstopshowcards)
+        self.startstop = 0
+        self.config(command = self.changebutton)
         self.place(x = 160, y = 140)
 
-    def startstopshowcards(self):
+    def startshowcards(self):
         self.lbl = Label(text = " ", fg = "yellow", bg = "black")
         self.lbl.place(x = 90, y = 60)
-        while True:
+        while self.startstop == 1:
             try:
                 xvar = random.choice(xlist)
                 self.lbl.configure(text = str(xvar))
@@ -27,6 +28,14 @@ class B(Button):
                 self.update()
             except TclError:
                 sys.exit()
+
+    def changebutton(self):
+        if self.startstop == 0:
+            self.startstop = 1
+            self.startshowcards()
+        else:
+            self.startstop = 0
+            self.startshowcards()
 
 def main():
     root = Tk()
